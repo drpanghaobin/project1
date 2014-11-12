@@ -2,8 +2,8 @@
 //  WeatherTableViewCell.swift
 //  Swift Weather
 //
-//  Created by pang on 14-11-3.
-//  Copyright (c) 2014年 rushjet. All rights reserved.
+//  Created by pang on 14-11-2.
+//  Copyright (c) 2014年 庞浩斌. All rights reserved.
 //
 
 import UIKit

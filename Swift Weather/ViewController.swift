@@ -396,25 +396,46 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         if (location.horizontalAccuracy > 0) {
             self.locationManager.stopUpdatingLocation()
             println(location.coordinate)
-//            updateWeatherInfo(location.coordinate.latitude, longitude: location.coordinate.longitude)
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
-                
+
+//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
+//                
+//                //这里写需要大量时间的代码
+//                self.updateWeatherInfo(location.coordinate.latitude, longitude: location.coordinate.longitude)
+//
+//                    println("GCD thread running.")
+//
+//                
+//              
+//                
+//                dispatch_async(dispatch_get_main_queue(), {
+//                    
+//                    //这里返回主线程，写需要主线程执行的代码
+//                    println("这里返回主线程，写需要主线程执行的代码")  
+//                })  
+//            })
+//            updateTodayWeatherInfo(location.coordinate.latitude, longitude: location.coordinate.longitude)
+            
+            
+            
+            var t1:dispatch_queue_t = dispatch_queue_create("1", nil);
+            
+            var t2:dispatch_queue_t = dispatch_queue_create("2", nil);
+            
+            dispatch_async(t1, {
+                println("GCD thread1 running.")
                 //这里写需要大量时间的代码
                 self.updateWeatherInfo(location.coordinate.latitude, longitude: location.coordinate.longitude)
-//                for var i = 0; i < 100000; i++
-//                {
-//                    println("GCD thread running.")
-//                }
                 
-              
                 
-                dispatch_async(dispatch_get_main_queue(), {
-                    
-                    //这里返回主线程，写需要主线程执行的代码
-                    println("这里返回主线程，写需要主线程执行的代码")  
-                })  
-            })
-            updateTodayWeatherInfo(location.coordinate.latitude, longitude: location.coordinate.longitude)
+                
+                }); 
+            
+            dispatch_async(t2, {
+                println("GCD thread2 running.")
+                self.updateTodayWeatherInfo(location.coordinate.latitude, longitude: location.coordinate.longitude)
+                
+                
+                });
         }
     }
 
